@@ -54,6 +54,7 @@ app.use('/api/testimonials', require('./routes/testimonials'));
 app.use('/api/faqs', require('./routes/faqs'));
 app.use('/api/settings', require('./routes/settings'));
 app.use('/api/messages', require('./routes/messages'));
+app.use('/api/admin-users', require('./routes/adminUsers'));
 
 // Health check
 app.get('/api/health', (req, res) => {

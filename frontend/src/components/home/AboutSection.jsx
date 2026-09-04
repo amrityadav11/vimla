@@ -27,15 +27,25 @@ export default function AboutSection() {
                         <div className="bg-gradient-to-br from-blue-900 to-blue-800 rounded-2xl p-8 text-white relative overflow-hidden">
                             <div className="absolute top-0 right-0 w-40 h-40 bg-blue-700/30 rounded-full -translate-y-12 translate-x-12" aria-hidden="true" />
                             <div className="relative z-10">
-                                <div className="w-14 h-14 bg-white/10 rounded-xl flex items-center justify-center mb-6">
-                                    <GraduationCap size={28} className="text-blue-200" />
+                                {/* Real logo */}
+                                <div className="mb-6">
+                                    <img
+                                        src="/logo.png"
+                                        alt="विमला जाँच घर"
+                                        className="w-20 h-20 rounded-2xl object-contain bg-white p-1.5 shadow-lg"
+                                        onError={e => { e.target.style.display = 'none'; e.target.nextElementSibling.style.display = 'flex'; }}
+                                    />
+                                    <div className="w-20 h-20 bg-white/10 rounded-2xl items-center justify-center" style={{ display: 'none' }}>
+                                        <GraduationCap size={32} className="text-blue-200" />
+                                    </div>
                                 </div>
                                 <h3 className="devanagari text-2xl font-bold text-white mb-1">विमला जाँच घर</h3>
                                 <p className="text-blue-200 text-sm mb-6">Vimla Janch Ghar — Pathology Laboratory</p>
                                 <div className="bg-white/10 rounded-xl p-5 backdrop-blur-sm">
                                     <p className="text-sm text-blue-100 font-medium mb-1">Managed by</p>
-                                    <p className="text-white font-semibold">B.Sc. MLT Professional</p>
-                                    <p className="text-blue-200 text-xs mt-1">B.Sc. Medical Laboratory Technology</p>
+                                    <p className="text-white font-semibold">Azad Kumar Raman</p>
+                                    <p className="text-blue-200 text-xs mt-1">B.Sc. M.L.T (Path)</p>
+                                    <p className="text-blue-300 text-xs mt-0.5">Dr. B.R. Ambedkar Institute of Punjab</p>
                                 </div>
                                 <div className="mt-5 bg-white/10 rounded-xl p-4 text-xs text-blue-200">
                                     Test information is provided for general information. Please follow your doctor's advice regarding which tests are appropriate for you.

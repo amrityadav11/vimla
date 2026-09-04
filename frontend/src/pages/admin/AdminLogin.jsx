@@ -29,8 +29,16 @@ export default function AdminLogin() {
         <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
             <div className="w-full max-w-sm">
                 <div className="text-center mb-8">
-                    <div className="w-14 h-14 bg-blue-800 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                        <FlaskConical size={28} className="text-white" />
+                    <div className="flex items-center justify-center mb-4">
+                        <img
+                            src="/logo.png"
+                            alt="विमला जाँच घर"
+                            className="w-20 h-20 rounded-2xl object-contain bg-white border border-gray-100 shadow-md p-1"
+                            onError={e => { e.target.style.display = 'none'; e.target.nextElementSibling.style.display = 'flex'; }}
+                        />
+                        <div className="w-20 h-20 bg-blue-800 rounded-2xl items-center justify-center shadow-md" style={{ display: 'none' }}>
+                            <FlaskConical size={32} className="text-white" />
+                        </div>
                     </div>
                     <h1 className="devanagari text-2xl font-bold text-blue-900">विमला जाँच घर</h1>
                     <p className="text-gray-500 text-sm mt-1">Admin Panel</p>

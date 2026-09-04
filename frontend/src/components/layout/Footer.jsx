@@ -12,9 +12,15 @@ export default function Footer() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
                     {/* Brand */}
                     <div className="lg:col-span-1">
-                        <div className="flex items-center gap-2.5 mb-4">
-                            <div className="w-9 h-9 bg-blue-600 rounded-lg flex items-center justify-center">
-                                <FlaskConical size={20} className="text-white" />
+                        <div className="flex items-center gap-3 mb-4">
+                            <img
+                                src="/logo.png"
+                                alt="विमला जाँच घर"
+                                className="h-12 w-12 rounded-xl object-contain bg-white p-1 shrink-0"
+                                onError={e => { e.target.style.display = 'none'; e.target.nextElementSibling.style.display = 'flex'; }}
+                            />
+                            <div className="w-12 h-12 bg-blue-600 rounded-xl items-center justify-center shrink-0" style={{ display: 'none' }}>
+                                <FlaskConical size={22} className="text-white" />
                             </div>
                             <div>
                                 <span className="devanagari font-bold text-xl text-white block leading-tight">विमला जाँच घर</span>
@@ -39,6 +45,8 @@ export default function Footer() {
                                 { to: '/about', label: 'About Us' },
                                 { to: '/tests', label: 'Test Catalogue' },
                                 { to: '/packages', label: 'Health Packages' },
+                                { to: '/gallery', label: 'Gallery' },
+                                { to: '/blog', label: 'Health Articles' },
                                 { to: '/faqs', label: 'FAQs' },
                                 { to: '/contact', label: 'Contact' },
                                 { to: '/request-test', label: 'Request a Test' },

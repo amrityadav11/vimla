@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { FlaskConical, Phone, MessageCircle, Microscope, Droplets, TestTube, Activity } from 'lucide-react';
+import { FlaskConical, Phone, MessageCircle, Microscope, Droplets, TestTube, Activity, CheckCircle, Bell } from 'lucide-react';
 import { useSettings } from '../../context/SettingsContext';
 
 const fadeUp = (delay = 0) => ({
@@ -11,18 +11,40 @@ const fadeUp = (delay = 0) => ({
 
 function LabIllustration() {
     return (
-        <div className="relative w-full max-w-md mx-auto">
+        <motion.div
+            className="relative w-full max-w-md mx-auto"
+            animate={{ y: [0, -10, 0] }}
+            transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+        >
+            {/* Notification badge floating */}
+            <motion.div
+                className="absolute -top-4 -right-4 z-20 bg-green-500 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1.5"
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 1.2, type: 'spring', stiffness: 300 }}
+            >
+                <Bell size={11} />
+                Report Ready!
+            </motion.div>
+
             {/* Main card */}
-            <div className="bg-white rounded-2xl shadow-xl p-8 relative z-10 border border-gray-100">
-                <div className="grid grid-cols-2 gap-5">
-                    {/* Lab tech card */}
-                    <div className="col-span-2 bg-blue-50 rounded-xl p-5 flex items-center gap-4">
-                        <div className="w-14 h-14 bg-blue-800 rounded-xl flex items-center justify-center shadow-md">
+            <div className="bg-white rounded-2xl shadow-2xl p-6 relative z-10 border border-gray-100">
+                <div className="grid grid-cols-2 gap-4">
+                    {/* Logo + name card */}
+                    <div className="col-span-2 bg-blue-50 rounded-xl p-4 flex items-center gap-4">
+                        <img
+                            src="/logo.png"
+                            alt="विमला जाँच घर"
+                            className="w-16 h-16 rounded-xl object-contain bg-white shadow-md p-1 shrink-0"
+                            onError={e => { e.target.style.display = 'none'; e.target.nextElementSibling.style.display = 'flex'; }}
+                        />
+                        <div className="w-16 h-16 bg-blue-800 rounded-xl items-center justify-center shadow-md shrink-0" style={{ display: 'none' }}>
                             <Microscope size={28} className="text-white" />
                         </div>
                         <div>
-                            <p className="font-bold text-blue-900 text-base">Laboratory Analysis</p>
-                            <p className="text-xs text-blue-600 mt-0.5">Professional Testing</p>
+                            <p className="devanagari font-bold text-blue-900 text-base leading-tight">विमला जाँच घर</p>
+                            <p className="text-xs text-blue-600 mt-0.5">Pathology Laboratory</p>
+                            <p className="text-xs text-gray-500 mt-0.5">B.Sc. MLT Professional</p>
                         </div>
                     </div>
                     {/* Small stat cards */}
@@ -42,21 +64,25 @@ function LabIllustration() {
                     </div>
                     {/* Report ready indicator */}
                     <div className="col-span-2 bg-gray-50 rounded-xl p-4 flex items-center gap-3">
-                        <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse" />
+                        <div className="relative">
+                            <div className="w-3 h-3 bg-green-500 rounded-full" />
+                            <div className="absolute inset-0 w-3 h-3 bg-green-500 rounded-full animate-ping opacity-75" />
+                        </div>
                         <div>
                             <p className="text-xs font-semibold text-gray-700">Timely Reporting</p>
                             <p className="text-xs text-gray-400">Most reports same day</p>
                         </div>
-                        <div className="ml-auto">
-                            <Droplets size={20} className="text-blue-400" />
+                        <div className="ml-auto flex items-center gap-1 text-green-600">
+                            <CheckCircle size={16} />
+                            <span className="text-xs font-semibold">Live</span>
                         </div>
                     </div>
                 </div>
             </div>
             {/* Decorative blobs */}
-            <div className="absolute -top-6 -right-6 w-24 h-24 bg-blue-100 rounded-full opacity-60 blur-xl" aria-hidden="true" />
-            <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-green-100 rounded-full opacity-50 blur-xl" aria-hidden="true" />
-        </div>
+            <div className="absolute -top-6 -right-6 w-24 h-24 bg-blue-400 rounded-full opacity-20 blur-2xl" aria-hidden="true" />
+            <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-green-400 rounded-full opacity-20 blur-2xl" aria-hidden="true" />
+        </motion.div>
     );
 }
 
@@ -65,23 +91,41 @@ export default function Hero() {
 
     return (
         <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-gradient-to-br from-blue-950 via-blue-900 to-blue-800">
-            {/* Background pattern */}
-            <div className="absolute inset-0 opacity-5" aria-hidden="true">
+            {/* Enhanced background pattern — medical cross + dots */}
+            <div className="absolute inset-0 opacity-[0.07]" aria-hidden="true">
                 <div
                     className="w-full h-full"
                     style={{
-                        backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
-                        backgroundSize: '32px 32px',
+                        backgroundImage: `
+                            radial-gradient(circle at 2px 2px, white 1.5px, transparent 0),
+                            linear-gradient(white 1px, transparent 1px),
+                            linear-gradient(90deg, white 1px, transparent 1px)
+                        `,
+                        backgroundSize: '32px 32px, 96px 96px, 96px 96px',
                     }}
                 />
             </div>
+            {/* Glowing orbs */}
+            <div className="absolute top-20 right-10 w-72 h-72 bg-blue-500 rounded-full opacity-10 blur-3xl pointer-events-none" aria-hidden="true" />
+            <div className="absolute bottom-20 left-10 w-64 h-64 bg-cyan-400 rounded-full opacity-10 blur-3xl pointer-events-none" aria-hidden="true" />
 
             <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-24 w-full">
                 <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
                     {/* Left */}
                     <div>
+                        {/* Announcement banner */}
+                        <motion.div {...fadeUp(0)} className="mb-6">
+                            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-500/20 border border-green-400/40 text-green-300 text-sm font-semibold backdrop-blur-sm">
+                                <span className="relative flex h-2 w-2">
+                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+                                    <span className="relative inline-flex rounded-full h-2 w-2 bg-green-400" />
+                                </span>
+                                अब घर बैठे सैंपल कलेक्शन उपलब्ध — Call Now
+                            </span>
+                        </motion.div>
+
                         {/* Badge */}
-                        <motion.div {...fadeUp(0)}>
+                        <motion.div {...fadeUp(0.05)}>
                             <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-800/60 border border-blue-700/50 text-blue-200 text-sm font-medium mb-6 backdrop-blur-sm">
                                 <FlaskConical size={14} />
                                 Pathology Laboratory
@@ -103,13 +147,13 @@ export default function Hero() {
                         <motion.div {...fadeUp(0.28)} className="flex flex-wrap gap-3 mb-8">
                             <Link
                                 to="/tests"
-                                className="px-6 py-3 bg-white text-blue-900 font-bold rounded-xl hover:bg-blue-50 transition-colors shadow-lg text-sm"
+                                className="px-6 py-3 bg-white text-blue-900 font-bold rounded-xl hover:bg-blue-50 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 text-sm"
                             >
                                 View Tests
                             </Link>
                             <Link
                                 to="/contact"
-                                className="px-6 py-3 bg-blue-700/70 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors border border-blue-600/50 text-sm"
+                                className="px-6 py-3 bg-blue-700/70 text-white font-semibold rounded-xl hover:bg-blue-700 transition-all border border-blue-600/50 text-sm hover:-translate-y-0.5"
                             >
                                 Contact Us
                             </Link>
@@ -117,7 +161,7 @@ export default function Hero() {
                                 href={getWhatsAppLink()}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="px-6 py-3 bg-green-600 text-white font-semibold rounded-xl hover:bg-green-700 transition-colors flex items-center gap-2 text-sm"
+                                className="px-6 py-3 bg-green-600 text-white font-semibold rounded-xl hover:bg-green-500 transition-all flex items-center gap-2 text-sm shadow-lg hover:shadow-green-900/30 hover:-translate-y-0.5"
                             >
                                 <MessageCircle size={16} /> WhatsApp Us
                             </a>

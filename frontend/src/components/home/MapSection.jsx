@@ -1,52 +1,83 @@
 import { motion } from 'framer-motion';
-import { MapPin, ExternalLink } from 'lucide-react';
+import { MapPin, ExternalLink, Navigation } from 'lucide-react';
 import { useSettings } from '../../context/SettingsContext';
+
+// Dasrath Chowk, Vidhan Bazar, Samastipur coordinates
+const EMBED_SRC =
+    'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3598.4!2d85.7776!3d25.8653!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f2a5b1e2c3d4e5%3A0xabcdef1234567890!2sDasrath%20Chowk%2C%20Vidhan%20Bazar%2C%20Samastipur%2C%20Bihar!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin';
+
+// Fallback: use the query param approach which always works
+const EMBED_QUERY = 'Dasrath+Chowk+Vidhan+Bazar+Samastipur+Bihar';
 
 export default function MapSection() {
     const { settings } = useSettings();
 
     return (
-        <section className="py-14 bg-white border-t border-gray-100">
+        <section className="py-14 bg-gray-50 border-t border-gray-100">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <motion.div
                     initial={{ opacity: 0, y: 16 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6"
+                    className="text-center mb-8"
                 >
-                    <div className="flex items-center gap-2">
-                        <MapPin size={20} className="text-blue-700" />
-                        <h2 className="text-lg font-bold text-gray-900">Find Us</h2>
-                    </div>
+                    <span className="inline-flex items-center gap-2 px-3 py-1 bg-blue-100 text-blue-700 text-xs font-semibold rounded-full mb-3">
+                        <MapPin size={12} />
+                        Find Us
+                    </span>
+                    <h2 className="text-2xl font-bold text-gray-900 mb-2">Visit Our Laboratory</h2>
+                    <p className="text-gray-500 text-sm">
+                        {settings.address || 'Dasrath Chowk, Vidhan Bazar, Samastipur, Bihar'}
+                    </p>
+                </motion.div>
+
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.1 }}
+                    className="rounded-2xl overflow-hidden border border-gray-200 shadow-lg"
+                >
+                    <iframe
+                        title="विमला जाँच घर Location"
+                        src={`https://maps.google.com/maps?q=${EMBED_QUERY}&t=&z=16&ie=UTF8&iwloc=&output=embed`}
+                        width="100%"
+                        height="380"
+                        style={{ border: 0, display: 'block' }}
+                        allowFullScreen
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade"
+                    />
+                </motion.div>
+
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.2 }}
+                    className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-6"
+                >
                     {settings.googleMapsUrl && (
                         <a
                             href={settings.googleMapsUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1.5 text-sm font-semibold text-blue-700 hover:text-blue-900 transition-colors"
+                            className="inline-flex items-center gap-2 px-6 py-3 bg-blue-800 text-white text-sm font-semibold rounded-xl hover:bg-blue-900 transition-colors shadow-md"
                         >
-                            Get Directions <ExternalLink size={14} />
+                            <Navigation size={15} />
+                            Get Directions
                         </a>
                     )}
+                    <a
+                        href={`https://maps.google.com/?q=${EMBED_QUERY}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 px-6 py-3 bg-white text-blue-800 border border-blue-200 text-sm font-semibold rounded-xl hover:bg-blue-50 transition-colors"
+                    >
+                        <ExternalLink size={15} />
+                        Open in Google Maps
+                    </a>
                 </motion.div>
-
-                <div className="bg-gray-100 rounded-2xl overflow-hidden border border-gray-200 aspect-video max-h-72 flex items-center justify-center">
-                    <div className="text-center p-8">
-                        <MapPin size={36} className="text-blue-300 mx-auto mb-3" />
-                        <p className="font-semibold text-gray-700 devanagari mb-1">विमला जाँच घर</p>
-                        <p className="text-sm text-gray-500 mb-4">{settings.address}</p>
-                        {settings.googleMapsUrl && (
-                            <a
-                                href={settings.googleMapsUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-800 text-white text-sm font-semibold rounded-lg hover:bg-blue-900 transition-colors"
-                            >
-                                Open in Google Maps <ExternalLink size={14} />
-                            </a>
-                        )}
-                    </div>
-                </div>
             </div>
         </section>
     );

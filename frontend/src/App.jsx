@@ -16,6 +16,9 @@ const RequestTestPage = lazy(() => import('./pages/RequestTestPage'));
 const FAQsPage = lazy(() => import('./pages/FAQsPage'));
 const WhyUsPage = lazy(() => import('./pages/WhyUsPage'));
 const DisclaimerPage = lazy(() => import('./pages/DisclaimerPage'));
+const GalleryPage = lazy(() => import('./pages/GalleryPage'));
+const BlogPage = lazy(() => import('./pages/BlogPage'));
+const BlogDetailPage = lazy(() => import('./pages/BlogDetailPage'));
 
 // Admin pages
 const AdminLogin = lazy(() => import('./pages/admin/AdminLogin'));
@@ -28,6 +31,7 @@ const AdminMessages = lazy(() => import('./pages/admin/AdminMessages'));
 const AdminTestimonials = lazy(() => import('./pages/admin/AdminTestimonials'));
 const AdminFAQs = lazy(() => import('./pages/admin/AdminFAQs'));
 const AdminSettings = lazy(() => import('./pages/admin/AdminSettings'));
+const AdminUsers = lazy(() => import('./pages/admin/AdminUsers'));
 
 function ProtectedRoute({ children }) {
   const { isAuthenticated, loading } = useAuth();
@@ -93,6 +97,9 @@ export default function App() {
               <Route path="/faqs" element={<Layout><FAQsPage /></Layout>} />
               <Route path="/why-us" element={<Layout><WhyUsPage /></Layout>} />
               <Route path="/disclaimer" element={<Layout><DisclaimerPage /></Layout>} />
+              <Route path="/gallery" element={<Layout><GalleryPage /></Layout>} />
+              <Route path="/blog" element={<Layout><BlogPage /></Layout>} />
+              <Route path="/blog/:slug" element={<Layout><BlogDetailPage /></Layout>} />
 
               {/* Static legal pages */}
               <Route path="/privacy" element={
@@ -126,6 +133,7 @@ export default function App() {
               <Route path="/admin/testimonials" element={<ProtectedRoute><AdminTestimonials /></ProtectedRoute>} />
               <Route path="/admin/faqs" element={<ProtectedRoute><AdminFAQs /></ProtectedRoute>} />
               <Route path="/admin/settings" element={<ProtectedRoute><AdminSettings /></ProtectedRoute>} />
+              <Route path="/admin/users" element={<ProtectedRoute><AdminUsers /></ProtectedRoute>} />
 
               {/* 404 */}
               <Route path="*" element={<NotFound />} />
